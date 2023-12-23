@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View, Platform } from "react-native";
 
-const Tile = ({ title, color }) => {
+const Tile = ({ title, color, onPress }) => {
   return (
     <View style={styles.rootContainer}>
       <Pressable
@@ -17,6 +17,7 @@ const Tile = ({ title, color }) => {
           color: "rgba(0,0,0,0.2)",
           foreground: true,
         }}
+        onPress={onPress}
       >
         <View style={[styles.innerContainer]}>
           <Text style={styles.text}>{title}</Text>

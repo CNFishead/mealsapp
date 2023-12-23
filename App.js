@@ -1,19 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import { Dimensions,  StyleSheet,  View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import Categories from "./screens/Categories.screen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MealsOverview from "./screens/MealsOverview.screen";
+
+// creates a stack navigator
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Categories />
-      <StatusBar style="light" />
-    </View>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={Categories}>
+          <Stack.Screen name="MealsCategories" component={Categories} />
+          <Stack.Screen name="MealsOverview" component={MealsOverview} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style="dark" />
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // set margin top to whatever the status bar height is, plus 10 to add a little space
-    marginTop: Dimensions.get("screen").height * 0.02,
-  },
+  container: {},
 });
