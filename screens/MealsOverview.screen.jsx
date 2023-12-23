@@ -1,11 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
+import MealItem from "../components/mealItem/MealItem.component";
 
-const MealsOverview = () => {
+const MealsOverview = ({ route }) => {
+  const { categoryId } = route.params;
+
+  // we want to find all meals that have the categoryId in their categoryIds array
+  const mealsToDisplay = MEALS.filter((meal) => meal.categoryIds.indexOf(categoryId) >= 0);
+
   return (
     <View style={styles.container}>
-      <Text>Hello world!</Text>
+      <FlatList
+        data={mealsToDisplay}
+        renderItem={({ item }) => <MealItem item={item} />}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 };
