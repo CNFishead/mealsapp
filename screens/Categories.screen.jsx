@@ -15,6 +15,8 @@ const Categories = ({ navigation }) => {
             onPress={() => {
               navigation.navigate("MealsOverview", {
                 categoryId: item.id,
+                categoryTitle: item.title,
+                categoryColor: item.color,
               });
             }}
           />
