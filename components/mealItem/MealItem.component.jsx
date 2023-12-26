@@ -1,7 +1,8 @@
 import React from "react";
 import { Image, Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import MealDetails from "../mealDetails/MealDetails.component";
 
-const MealItem = ({ item }) => {
+const MealItem = ({ item, onPress }) => {
   return (
     <View style={styles.rootContainer}>
       <Pressable
@@ -12,6 +13,7 @@ const MealItem = ({ item }) => {
             opacity: pressed ? styles.buttonPressed : null,
           },
         ]}
+        onPress={onPress}
       >
         <View style={styles.innerContainer}>
           <View>
@@ -20,11 +22,7 @@ const MealItem = ({ item }) => {
             </View>
             <Text style={styles.title}>{item.title}</Text>
           </View>
-          <View style={styles.informationContainer}>
-            <Text style={styles.informationContainerText}>Time: {item.duration}m</Text>
-            <Text style={styles.informationContainerText}>Complexity: {item.complexity.toUpperCase()}</Text>
-            <Text style={styles.informationContainerText}>Cost: {item.affordability.toUpperCase()}</Text>
-          </View>
+          <MealDetails item={item} />
         </View>
       </Pressable>
     </View>
@@ -64,15 +62,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     margin: 8,
-  },
-  informationContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
-  },
-  informationContainerText: {
-    fontSize: 12,
-    marginHorizontal: 4,
   },
 });

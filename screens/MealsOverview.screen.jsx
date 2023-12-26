@@ -23,7 +23,18 @@ const MealsOverview = ({ route, navigation }) => {
     <View style={styles.container}>
       <FlatList
         data={mealsToDisplay}
-        renderItem={({ item }) => <MealItem item={item} />}
+        renderItem={({ item }) => (
+          <MealItem
+            item={item}
+            onPress={() =>
+              navigation.navigate("MealDetails", {
+                mealId: item.id,
+                mealTitle: item.title,
+                mealsColor: route.params.categoryColor,
+              })
+            }
+          />
+        )}
         keyExtractor={(item) => item.id}
       />
     </View>
