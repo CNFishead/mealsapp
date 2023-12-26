@@ -1,15 +1,23 @@
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { Button, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import { default as MD } from "../components/mealDetails/MealDetails.component";
 import colors from "../constants/colors";
 import IconButton from "../components/iconButton/IconButton.component";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 const MealDetails = ({ route, navigation }) => {
   const meal = MEALS.find((meal) => meal.id === route.params.mealId);
+  const favoriteMealsCtx = useContext(FavoritesContext);
 
-  const headerButtonHandler = () => {
-    console.log("header button pressed");
+  const isFavorite = favoriteMealsCtx.favorites.some((item) => item === meal.id);
+
+  const changeFavoriteStatusHandler = () => {
+    if (isFavorite) {
+      favoriteMealsCtx.removeFavorite(meal.id);
+    } else {
+      favoriteMealsCtx.addFavorite(meal.id);
+    }
   };
 
   useLayoutEffect(() => {
@@ -19,9 +27,11 @@ const MealDetails = ({ route, navigation }) => {
       headerStyle: {
         backgroundColor: route.params.mealsColor,
       },
-      headerRight: () => <IconButton onPress={headerButtonHandler} icon={"star"} color={"white"} />,
+      headerRight: () => (
+        <IconButton onPress={changeFavoriteStatusHandler} icon={isFavorite ? "star" : "star-outline"} color={"white"} />
+      ),
     });
-  }, [navigation, headerButtonHandler]);
+  }, [navigation, changeFavoriteStatusHandler]);
   return (
     <View style={styles.rootContainer}>
       <View>
