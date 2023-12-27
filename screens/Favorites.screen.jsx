@@ -5,12 +5,12 @@ import { MEALS } from "../data/dummy-data";
 import MealItem from "../components/mealItem/MealItem.component";
 import MealsList from "../components/mealsList/MealsList.component";
 import colors from "../constants/colors";
+import { useSelector } from "react-redux";
 
 const FavoritesScreen = ({ navigation, route }) => {
   const [meals, setMeals] = useState([]);
 
-  // get the context from the FavoritesContext
-  const { favorites } = useContext(FavoritesContext);
+  const { favorites } = useSelector((state) => state.favorites);
 
   // get the meals from the MEALS array that match the favorites
   const mealsToDisplay = MEALS.filter((meal) => favorites.some((item) => item === meal.id));
